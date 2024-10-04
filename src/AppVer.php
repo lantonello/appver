@@ -149,6 +149,7 @@ class AppVer
             $fhandle = fopen( $filepath, "w" );
             fwrite( $fhandle, '#!/bin/bash' . PHP_EOL );
             fwrite( $fhandle, 'php artisan appver:inc' . PHP_EOL );
+            fwrite( $fhandle, 'git add ' . self::VERSION_FILE );
             fclose($fhandle);
 
             chmod( $filepath, 0755 );
