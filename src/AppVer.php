@@ -134,6 +134,9 @@ class AppVer
         // Get root path
         $filepath = base_path( self::VERSION_FILE );
 
+        if( ! file_exists( $filepath ) )
+            return;
+
         $this->version = Version::parse( file_get_contents($filepath) );
     }
 
