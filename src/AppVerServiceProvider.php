@@ -2,6 +2,7 @@
 
 namespace Codimais\AppVer;
 
+use Codimais\AppVer\Console\IncCommand;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Console\AboutCommand;
 use Codimais\AppVer\Console\InitCommand;
@@ -44,6 +45,7 @@ class AppVerServiceProvider extends ServiceProvider
     {
         $this->commands([
             InitCommand::class,
+            IncCommand::class
         ]);
     }
 
@@ -58,6 +60,6 @@ class AppVerServiceProvider extends ServiceProvider
             return;
         }
 
-        AboutCommand::add('AppVer', fn () => ['Version' => '1.0.0']);
+        AboutCommand::add('AppVer', fn () => ['Version' => '1.0.3']);
     }
 }

@@ -64,6 +64,8 @@ class InitCommand extends Command
         $this->info(' ');
         $this->info('Your application version is all set!');
         $this->info('Thanks for using AppVer. Hope you enjoy it!');
+
+        return 0;
     }
 
     private function checkForGit(): bool
