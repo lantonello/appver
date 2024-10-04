@@ -60,6 +60,6 @@ class AppVerServiceProvider extends ServiceProvider
             return;
         }
 
-        AboutCommand::add('AppVer', fn () => ['Version' => '1.0.3']);
+        AboutCommand::add('AppVer', fn () => ['Version' => '1.0.4']);
     }
 }

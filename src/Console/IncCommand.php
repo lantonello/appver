@@ -2,10 +2,7 @@
 
 namespace Codimais\AppVer\Console;
 
-use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
-use Codimais\AppVer\AppVerServiceProvider;
 use Codimais\AppVer\AppVer;
 
 class IncCommand extends Command
@@ -38,6 +35,9 @@ class IncCommand extends Command
         $minor = $this->option('minor');
         $patch = $this->option('patch');
 
+        if( ! $major && ! $minor )
+            $patch = true;
+
         $appver = new AppVer();
 
         $old_version = $appver->get();
@@ -53,6 +53,11 @@ class IncCommand extends Command
 
         $appver->save();
 
-        $this->info("Version changed from '{$old_version}' to '{$appver->get()}'");
+        $this->line(' ');
+        $this->info('AppVer');
+        $this->info(">> Version changed from '{$old_version}' to '{$appver->get()}'");
+        $this->line(' ');
+
+        return 0;
     }
 }
