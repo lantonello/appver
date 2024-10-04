@@ -4,7 +4,9 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/codimais/appver.svg?style=flat-square)](https://packagist.org/packages/codimais/appver)
 ![GitHub Actions](https://github.com/codimais/laraversion/actions/workflows/main.yml/badge.svg)
 
-Controls semantic versioning of your Laravel application with easy
+Controls semantic versioning of your Laravel application with easy!
+
+The main goal of this package is to add automated and independent semantic version control, without the need to use git _tags_ or _branches_.
 
 ## Installation
 
@@ -20,7 +22,7 @@ After installing the package in your project, go to the terminal and run the bel
 php artisan appver:init
 ```
 
-The command will ask if you want to boot with a specific version. You can accept the default, which is **"1.0.0"**.
+The command will ask if you want to define a specific initial version. You can accept the default, which is **"1.0.0"** or type yours app version.
 
 It will also try to identify if your project has a git repository and, if so, it will offer to create a git hook to automate the version increment.
 
@@ -89,6 +91,8 @@ class MyController extends Controller
 ```
 
 ### Testing
+
+Testing are not ready yet!
 
 ```bash
 composer test
