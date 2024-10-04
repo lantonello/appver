@@ -1,0 +1,56 @@
+{
+    "name": "codimais/appver",
+    "description": "Controls semantic versioning of your Laravel application with easy",
+    "keywords": [
+        "codimais",
+        "laraversion"
+    ],
+    "homepage": "https://github.com/codimais/appver",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Leandro Antonello",
+            "email": "lantonello@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0",
+        "z4kn4fein/php-semver": "^3.0"
+    },
+    "require-dev": {
+        "laravel/framework": "^10.0 | ^11.0",
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codimais\\AppVer\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Codimais\\AppVer\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Codimais\\AppVer\\AppVerServiceProvider"
+            ],
+            "aliases": {
+                "LaraVersion": "Codimais\\AppVer\\AppVerFacade"
+            }
+        }
+    }
+}
