@@ -2,10 +2,12 @@
 
 namespace Codimais\AppVer;
 
-use Codimais\AppVer\Console\IncCommand;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Console\AboutCommand;
+
 use Codimais\AppVer\Console\InitCommand;
+use Codimais\AppVer\Console\SetCommand;
+use Codimais\AppVer\Console\IncCommand;
 
 class AppVerServiceProvider extends ServiceProvider
 {
@@ -45,6 +47,7 @@ class AppVerServiceProvider extends ServiceProvider
     {
         $this->commands([
             InitCommand::class,
+            SetCommand::class,
             IncCommand::class
         ]);
     }
