@@ -97,7 +97,45 @@ class AppVer
             throw new Exception("Version not set! Did you run the 'appver:init' command before?");
         }
 
-        $new_version   = $this->version->inc( $part );
+        // Get config
+        $config = config('appver');
+
+        if( ($config['max_patch'] > 0) || ($config['max_minor'] > 0) )
+        {
+            $major = $this->version->getMajor();
+            $minor = $this->version->getMinor();
+            $patch = $this->version->getPatch();
+            
+            if( $part === Inc::PATCH )
+            {
+                $patch++;
+
+                if( $patch >= $config['max_patch'] )
+                {
+                    $patch = 0;
+                    $minor++;
+                }
+            }
+
+            if( $part === Inc::MINOR )
+            {
+                $minor++;
+
+                if( $minor >= $config['max_minor'] )
+                {
+                    $minor = 0;
+                    $major++;
+                }
+            }
+
+            $new_version = Version::create( $major, $minor, $patch );
+        }
+        else
+        {
+            $new_version   = $this->version->inc( $part );
+        }
+
+        //
         $this->version = $new_version;
 
         if( $save )
