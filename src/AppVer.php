@@ -89,6 +89,11 @@ class AppVer
         return $this->writeGitHookFile();
     }
 
+    public function removeGitHook(): bool
+    {
+        return $this->removeGitHookInstructions();
+    }
+
     // Protected Methods
     protected function increment( $part, bool $save = false )
     {
@@ -184,13 +189,21 @@ class AppVer
     protected function writeGitHookFile(): bool
     {
         $filepath = base_path( self::HOOK_FILE );
+        $instructions = $this->getGitHookInstructions();
 
         try
         {
-            $fhandle = fopen( $filepath, "w" );
-            fwrite( $fhandle, '#!/bin/bash' . PHP_EOL );
-            fwrite( $fhandle, 'php artisan appver:inc' . PHP_EOL );
-            fwrite( $fhandle, 'git add ' . self::VERSION_FILE );
+            if( file_exists( $filepath ) )
+            {
+                $fhandle = fopen( $filepath, "a" );
+            }
+            else
+            {
+                $fhandle = fopen( $filepath, "w" );
+                fwrite( $fhandle, '#!/bin/bash' . PHP_EOL );
+            }
+            
+            fwrite( $fhandle, implode(PHP_EOL, $instructions) );
             fclose($fhandle);
 
             chmod( $filepath, 0755 );
@@ -201,5 +214,43 @@ class AppVer
         {
             return false;
         }
+    }
+
+    /**
+     * Remove githook instructions
+     */
+    protected function removeGitHookInstructions(): bool
+    {
+        $filepath = base_path( self::HOOK_FILE );
+        $instructions = $this->getGitHookInstructions();
+
+        if( ! file_exists($filepath) )
+        {
+            return true;
+        }
+
+        $content = file_get_contents( $filepath );
+
+        foreach( $instructions as $line )
+        {
+            $content = str_replace( trim($line), '', $content );
+        }
+
+        file_put_contents( $filepath, $content );
+
+        return true;
+    }
+
+    /**
+     * Returns the gitHook instructions lines as array
+     */
+    protected function getGitHookInstructions(): array
+    {
+        return [
+            "# Increment version",
+            "php artisan appver:inc",
+            "# Add file to this commit",
+            "git add ". self::VERSION_FILE
+        ];
     }
 }
