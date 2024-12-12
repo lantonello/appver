@@ -8,6 +8,8 @@ use Illuminate\Foundation\Console\AboutCommand;
 use Codimais\AppVer\Console\InitCommand;
 use Codimais\AppVer\Console\SetCommand;
 use Codimais\AppVer\Console\IncCommand;
+use Codimais\AppVer\Console\DisableGitHookCommand;
+use Codimais\AppVer\Console\ViewCommand;
 
 class AppVerServiceProvider extends ServiceProvider
 {
@@ -48,7 +50,9 @@ class AppVerServiceProvider extends ServiceProvider
         $this->commands([
             InitCommand::class,
             SetCommand::class,
-            IncCommand::class
+            IncCommand::class,
+            ViewCommand::class,
+            DisableGitHookCommand::class,
         ]);
     }
 
